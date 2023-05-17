@@ -12,7 +12,8 @@
  */
 
 // Your code goes here...
-
+const allItems = document.querySelectorAll('.item');
+console.log(allItems);
 
 
 /**
@@ -23,8 +24,8 @@
  * */
 
 // Your code goes here
-
-
+const main = document.querySelector('#main');
+console.log(main);
 
 /**
  * @task
@@ -34,7 +35,8 @@
  */
 
 // Your code goes here
-
+const favs = document.querySelector('#favs');
+console.dir(favs);
 
 
 /**
@@ -47,6 +49,33 @@
  */
 
 // Your code goes here
+const updateCollections = (id, direction) => {
+  const elementId = document.getElementById(id);
+  if (direction === 'toFavs') {
+    favs.append(elementId);
+    elementId.firstElementChild.classList.remove("fa-heart-circle-plus");
+    elementId.firstElementChild.classList.add("fa-heart-crack");
+  } else if (direction === 'toMain') {
+    main.append(elementId);
+    elementId.firstElementChild.classList.remove("fa-heart-crack");
+    elementId.firstElementChild.classList.add("fa-heart-circle-plus");
+  }
+};
+
+// const updateCollections = (id, direction) => {
+//   let element = document.getElementById(id)
+//   const value = element.parentNode.id == 'main' && direction === 'toFavs' ? ['fa-heart-crack', 'favs'] : ['fa-heart-circle-plus', 'main'];
+//   parent = document.getElementById(value[1])
+//   element.innerHTML = `
+//     <i class="fa-solid ${value[0]}"></i>
+//     Card Title ${id}
+//   `
+
+//   parent.appendChild(element);
+// };
+
+
+
 
 
 
@@ -65,5 +94,29 @@
  */
 
 // Your code goes here...
+allItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    const collection = item.parentElement.id;
+    const id = item.id;
+    let direction;
 
+    if (collection === 'main') {
+      direction = 'toFavs';
+    } else if (collection === 'favs') {
+      direction = 'toMain';
+    }
+
+    updateCollections(id, direction);
+  });
+})
+
+
+// allItems.forEach((item) => {
+//   item.addEventListener('click', e => {
+//     const parentId = e.target.parentNode.id
+//     const id = e.target.id;
+//     let direction = parentId === 'main' ? 'toFavs' : 'toMain'
+//     updateCollections(id, direction);
+//   })
+// });
 
