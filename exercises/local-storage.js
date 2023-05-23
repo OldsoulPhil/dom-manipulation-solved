@@ -69,6 +69,6 @@ function changeColorAndUpdateLocalStorage(item, color, action) {
   item.style.background = color;
   action === 'push-to-favorites-array'
     ? favoritesArray.push(item.id)
-    : favoritesArray.spice(favoritesArray.indexof(item.id), 1)
+    : favoritesArray.splice(favoritesArray.indexof(item.id), 1)
   localStorage.setItem('favorites', JSON.stringify(favoritesArray));
 };
