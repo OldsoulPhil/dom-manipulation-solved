@@ -51,33 +51,18 @@ console.dir(favs);
 // Your code goes here
 const updateCollections = (id, direction) => {
   const elementId = document.getElementById(id);
-  if (direction === 'toFavs') {
-    favs.append(elementId);
-    elementId.firstElementChild.classList.remove("fa-heart-circle-plus");
-    elementId.firstElementChild.classList.add("fa-heart-crack");
-  } else if (direction === 'toMain') {
-    main.append(elementId);
-    elementId.firstElementChild.classList.remove("fa-heart-crack");
-    elementId.firstElementChild.classList.add("fa-heart-circle-plus");
-  }
+  const movement =
+    direction === 'toFavs'
+      ? favs.append.bind(favs, elementId)
+      : main.append.bind(main, elementId);
+  const iconClass =
+    direction === 'toFavs'
+      ? 'fa-heart-crack'
+      : 'fa-heart-circle-plus';
+  movement();
+  elementId.firstElementChild.classList.remove(iconClass);
+  elementId.firstElementChild.classList.add(iconClass);
 };
-
-// const updateCollections = (id, direction) => {
-//   let element = document.getElementById(id)
-//   const value = element.parentNode.id == 'main' && direction === 'toFavs' ? ['fa-heart-crack', 'favs'] : ['fa-heart-circle-plus', 'main'];
-//   parent = document.getElementById(value[1])
-//   element.innerHTML = `
-//     <i class="fa-solid ${value[0]}"></i>
-//     Card Title ${id}
-//   `
-
-//   parent.appendChild(element);
-// };
-
-
-
-
-
 
 /**
  * @task
@@ -108,15 +93,4 @@ allItems.forEach((item) => {
 
     updateCollections(id, direction);
   });
-})
-
-
-// allItems.forEach((item) => {
-//   item.addEventListener('click', e => {
-//     const parentId = e.target.parentNode.id
-//     const id = e.target.id;
-//     let direction = parentId === 'main' ? 'toFavs' : 'toMain'
-//     updateCollections(id, direction);
-//   })
-// });
-
+});
